@@ -22,7 +22,11 @@ Fine-tune an LLM on email subjects to create better content calendars.
 ```json
 {
     "input": {
-        "prompt": "Give me an email-only content calendar for activating users that haven't used my service in more than 3 months. The service is an online marketplace for prospective home buyers to find houses and apartments in the Netherlands. Instructions: for each content idea provided, give me why this is something that makes sense for activating dormant users, and how to adjust the content strategy depending on whether it has been successful at activating the user after each month."
+        "prompt": """Produce an email calendar. 
+            Goal: Activation. 
+            Duration: 6 months. 
+            Customer segment: Web users.
+            Company description: Marketplace for buying apartments"""
     }
 }
 ```

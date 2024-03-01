@@ -1,3 +1,9 @@
+import sys
+import logging
+
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 import os
 
 import torch
@@ -16,7 +22,8 @@ loaded_tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 def batch_inference(prompt: str) -> str:
     """Perform batch inference using the loaded model and tokenizer."""
-    
+    logger.info(f'Received prompt: {prompt}.')
+
     prompt_wrapper = lambda text: f'[INST]{text}[/INST]'
 
     with torch.no_grad():
@@ -31,6 +38,7 @@ def batch_inference(prompt: str) -> str:
         	skip_special_tokens=True)[0]
 
         answer_only_text = decoded_text.split('[/INST]')[-1]
+        logger.info(f'Generated response: {answer_only_text}.')
 
         return answer_only_text
 

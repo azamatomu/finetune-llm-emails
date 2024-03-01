@@ -19,16 +19,31 @@ Fine-tune an LLM on email subjects to create better content calendars.
 
 ## Example Input
 
-```json
-{
-    "input": {
-        "prompt": """Produce an email calendar. 
-            Goal: Activation. 
-            Duration: 6 months. 
-            Customer segment: Web users.
-            Company description: Marketplace for buying apartments"""
-    }
+```python
+import requests
+
+url = 'https://api.runpod.ai/v2/bn6i57c6fbcskq/runsync'
+headers = {
+    'Authorization': 'Bearer DM_FOR_TOKEN',
+    'Content-Type': 'application/json'  
 }
+def get_answer(goal, duration, segment, company_info):
+
+    payload = {
+        'input': {
+            'prompt': f"""Produce an email calendar. 
+            Goal: {goal}. 
+            Duration: {duration}. 
+            Customer segment: {segment}.
+            Company description: {company_info}"""        
+      }
+    }
+        
+    response = requests.post(url, headers=headers, json=payload)
+    
+    return response.json()['output']
+
+get_answer('Activation', '6 months', 'Web users', 'Marketplace for buying apartments')
 ```
 ## What was this model fine-tuned on? 
 

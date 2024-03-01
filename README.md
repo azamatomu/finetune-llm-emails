@@ -1,5 +1,5 @@
 # finetune-llm-emails
-Fine-tune an LLM on email subjects to create better content calendars.
+Fine-tune Mistral-7B (Instruct) on email subjects to create better content calendars.
 
 ## How to build the Docker image
 

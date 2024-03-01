@@ -1,33 +1,24 @@
-import runpod
-
 import os
-import google.protobuf
-from os.path import dirname
-
-# from flask import Flask, request, jsonify
 
 import torch
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import datetime
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-import transformers
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from runpod.serverless import start
 
+# Check if CUDA is available, otherwise use CPU
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# Download the fine-tuned model files and copy into 'mistral-7b-it-emails' folder
-model_path = f'model/mistral-7b-it-emails/'
+# Load fine-tuned model and tokenizer
+model_path = 'model/mistral-7b-it-emails/'
 loaded_model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto')
 loaded_tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 
-prompt_wrapper = lambda text: f'[INST]{text}[/INST]'
-
 def batch_inference(prompt: str) -> str:
-    # res: [str] = []
-    # for p in prompt:
+    """Perform batch inference using the loaded model and tokenizer."""
+    
+    prompt_wrapper = lambda text: f'[INST]{text}[/INST]'
+
     with torch.no_grad():
         input_ids = loaded_tokenizer(prompt_wrapper(prompt), 
         	return_tensors="pt", 
@@ -36,11 +27,12 @@ def batch_inference(prompt: str) -> str:
         	return_attention_mask=False).to(device)
         generated_ids = loaded_model.generate(**input_ids, max_length=4096-512, 
         	num_return_sequences=1, do_sample=True)
-        generated_text = loaded_tokenizer.batch_decode(generated_ids, 
+        decoded_text = loaded_tokenizer.batch_decode(generated_ids, 
         	skip_special_tokens=True)[0]
-        # res.append(generated_text)
-        # return res
-        return generated_text
+
+        answer_only_text = decoded_text.split('[/INST]')[-1]
+
+        return answer_only_text
 
 
 def handler(job):
@@ -58,4 +50,7 @@ def handler(job):
 
 
 
-runpod.serverless.start({"handler": handler})
+if __name__ == "__main__":
+    from runpod.serverless import start
+
+    start({"handler": handler})

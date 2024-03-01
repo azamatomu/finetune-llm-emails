@@ -33,7 +33,10 @@ This mistral-7b-it model has been fine-tuned using QLoRA on a set of instruction
 Below is an example of one input entry: 
 ```
 
-[INST]Create a content calendar for an email marketing campaign focused on wine lovers, that aims to guide them from initial brand engagement to becoming informed and enthusiastic customers by leveraging various relevant themes and incentives. The campaign should cover an introductory series of 20 emails, aligning each message with a content theme or promotion that resonates with the interests and lifecycle of a wine-loving audience. Address seasonality, product education, engagement, and sales promotions, suggesting a strategic order for the email subjects provided, considering the elements of timing and context in your reasoning.[/INST]
+[INST]Create a content calendar for an email marketing campaign focused on wine lovers,
+that aims to guide them from initial brand engagement to becoming informed and enthusiastic customers by leveraging various relevant themes and incentives.
+The campaign should cover an introductory series of 20 emails, aligning each message with a content theme or promotion that resonates with the interests and lifecycle of a wine-loving audience.
+Address seasonality, product education, engagement, and sales promotions, suggesting a strategic order for the email subjects provided, considering the elements of timing and context in your reasoning.[/INST]
 
 Based on the email subjects provided, the proposed plan for the content calendar could be as follows:
 

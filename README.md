@@ -6,7 +6,7 @@ Fine-tune an LLM on email subjects to create better content calendars.
 1. Clone repo
 2. Make sure you have the model weights downloaded in the `model` folder
 3. If you are using model weights different than `mistral-7b-it-emails`, adjust the model weight path in `Dockerfile`
-4. Run `docker build -t `$username$/reponame:tag .` to build the Docker image
+4. Run `docker build -t $username$/reponame:tag .` to build the Docker image
 5. Push the Docker image to your Docker repo
 
 ## How to deploy the Docker image on RunPod
